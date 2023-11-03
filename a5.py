@@ -125,6 +125,7 @@ class Board:
         Returns:
             True if we've placed all numbers, False otherwise
         """
+        return self.num_nums_placed == self.size * self.size
         pass
 
     def update(self, row: int, column: int, assignment: int) -> None:
@@ -139,6 +140,8 @@ class Board:
             column - index of the column to assign
             assignment - value to place at given row, column coordinate
         """
+        
+        self.num_nums_placed+=1
         pass
 
 
@@ -173,6 +176,9 @@ def BFS(state: Board) -> Board:
 
 
 if __name__ == "__main__":
+    b = Board
+    print(b)
+    b.print_pretty
     # uncomment the below lines once you've implemented the board class
    
     # # CODE BELOW HERE RUNS YOUR BFS/DFS
