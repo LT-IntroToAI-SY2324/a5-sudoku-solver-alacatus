@@ -108,7 +108,18 @@ class Board:
         Returns:
             a tuple of row, column index identifying the most constrained cell
         """
-        pass
+        mini = self.size
+        pos = (0, 0)
+        for i in range(self.size):
+            for j in range(self.size):
+                # print(self.rows[i][j])
+                if isinstance(self.rows[i][j], list) and len(self.rows[i][j]) < mini:
+                    # print(self.rows[i][j])
+                    mini = len(self.rows[i][j])
+                    pos = (i, j)
+                    # print(mini)
+                    # print(pos)
+        return pos
 
     def failure_test(self) -> bool:
         """Check if we've failed to correctly fill out the puzzle. If we find a cell
@@ -118,7 +129,13 @@ class Board:
         Returns:
             True if we have failed to fill out the puzzle, False otherwise
         """
-        pass
+
+        for row in self.rows:
+            for cell in row:
+                if not cell:
+                    return True
+        return False
+    
 
     def goal_test(self) -> bool:
         """Check if we've completed the puzzle (if we've placed all the numbers).
