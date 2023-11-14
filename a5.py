@@ -188,7 +188,7 @@ def DFS(state: Board) -> Board:
     while not the_stack.is_empty():
         print(the_stack)
         curr = the_stack.pop()
-        # print(curr)
+        
         if curr.goal_test():
             return curr
         elif not curr.failure_test():
@@ -214,7 +214,22 @@ def BFS(state: Board) -> Board:
     Returns:
         either None in the case of invalid input or a solved board
     """
-    pass
+    the_queue = Queue([state])
+    while not the_queue.is_empty():
+        print(the_queue)
+        curr = the_queue.pop()
+        
+        if curr.goal_test():
+            return curr
+        elif not curr.failure_test():
+            row, col = curr.find_most_constrained_cell()
+            sel = curr.rows[row][col]
+            for el in sel:
+                cpy = copy.deepcopy(curr) 
+                cpy.update(row, col, el)
+                print(row, col, el)
+                the_queue.push(cpy)
+    return None
 
 
 if __name__ == "__main__":
