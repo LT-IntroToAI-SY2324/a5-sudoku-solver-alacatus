@@ -185,21 +185,27 @@ def DFS(state: Board) -> Board:
         either None in the case of invalid input or a solved board
     """
     the_stack = Stack([state])
+    count = 0
+    # print(the_stack)
+    # 1Add the initial state (root) to the <stack>
+    # 2Choose a node (curr) to examine from the <stack> (if there is nothing in <stack> - FAILURE)
     while not the_stack.is_empty():
-        print(the_stack)
+        # print(the_stack)
         curr = the_stack.pop()
-        
+        count += 1
+        # print(curr)
         if curr.goal_test():
+            print(f"It took {count} iterations to solve")
             return curr
         elif not curr.failure_test():
             row, col = curr.find_most_constrained_cell()
-            sel = curr.rows[row][col]
-            for el in sel:
+            mcc = curr.rows[row][col]
+            for sel in mcc:
                 cpy = copy.deepcopy(curr) 
-                cpy.update(row, col, el)
-                print(row, col, el)
+                cpy.update(row, col, sel)
+                # print(row, col, sel)
                 the_stack.push(cpy)
-    return None
+    
 
 
 def BFS(state: Board) -> Board:
@@ -215,114 +221,114 @@ def BFS(state: Board) -> Board:
         either None in the case of invalid input or a solved board
     """
     the_queue = Queue([state])
+    count = 0
     while not the_queue.is_empty():
-        print(the_queue)
         curr = the_queue.pop()
-        
+        count += 1
         if curr.goal_test():
+            print(f"It took {count} iterations to solve")
             return curr
         elif not curr.failure_test():
             row, col = curr.find_most_constrained_cell()
-            sel = curr.rows[row][col]
-            for el in sel:
+            mcc = curr.rows[row][col]
+            for sel in mcc:
                 cpy = copy.deepcopy(curr) 
-                cpy.update(row, col, el)
-                print(row, col, el)
+                cpy.update(row, col, sel)
+                # print(row, col, sel)
                 the_queue.push(cpy)
     return None
 
-
 if __name__ == "__main__":
-    b = Board
-    print(b)
-    b.print_pretty()
-    b.update(0, 0, 4)
-    b.update(2, 1, 7)
-    b.update(0, 5, 1)
-    b.update(7, 1, 8)
-    b.print_pretty()
-    print(b)
+    # b = Board
+    # print(b)
+    # b.print_pretty()
+    # b.update(0, 0, 4)
+    # b.update(2, 1, 7)
+    # b.update(0, 5, 1)
+    # b.update(7, 1, 8)
+    # b.print_pretty()
+    #print(b)
     # uncomment the below lines once you've implemented the board class
    
     # # CODE BELOW HERE RUNS YOUR BFS/DFS
-    # print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Solving Sudoku >>>>>>>>>>>>>>")
 
-    # def test_dfs_or_bfs(use_dfs: bool, moves: List[Tuple[int, int, int]]) -> None:
-    #     b = Board()
-    #     # make initial moves to set up board
-    #     for move in moves:
-    #         b.update(*move)
+    def test_dfs_or_bfs(use_dfs: bool, moves: List[Tuple[int, int, int]]) -> None:
+        b = Board()
+        # make initial moves to set up board
+        for move in moves:
+            b.update(*move)
 
-    #     # print initial board
-    #     print("<<<<< Initial Board >>>>>")
-    #     b.print_pretty()
-    #     # solve board
-    #     solution = (DFS if use_dfs else BFS)(b)
-    #     # print solved board
-    #     print("<<<<< Solved Board >>>>>")
-    #     solution.print_pretty()
+        # print initial board
+        print("<<<<< Initial Board >>>>>")
+        b.print_pretty()
+        # solve board
+        solution = (DFS if use_dfs else BFS)(b)
+        # print solved board
+        print("<<<<< Solved Board >>>>>")
+        solution.print_pretty()
 
-    # # sets of moves for the different games
-    # first_moves = [
-    #     (0, 1, 7),
-    #     (0, 7, 1),
-    #     (1, 2, 9),
-    #     (1, 3, 7),
-    #     (1, 5, 4),
-    #     (1, 6, 2),
-    #     (2, 2, 8),
-    #     (2, 3, 9),
-    #     (2, 6, 3),
-    #     (3, 1, 4),
-    #     (3, 2, 3),
-    #     (3, 4, 6),
-    #     (4, 1, 9),
-    #     (4, 3, 1),
-    #     (4, 5, 8),
-    #     (4, 7, 7),
-    #     (5, 4, 2),
-    #     (5, 6, 1),
-    #     (5, 7, 5),
-    #     (6, 2, 4),
-    #     (6, 5, 5),
-    #     (6, 6, 7),
-    #     (7, 2, 7),
-    #     (7, 3, 4),
-    #     (7, 5, 1),
-    #     (7, 6, 9),
-    #     (8, 1, 3),
-    #     (8, 7, 8),
-    # ]
+    # sets of moves for the different games
+    first_moves = [
+        (0, 1, 7),
+        (0, 7, 1),
+        (1, 2, 9),
+        (1, 3, 7),
+        (1, 5, 4),
+        (1, 6, 2),
+        (2, 2, 8),
+        (2, 3, 9),
+        (2, 6, 3),
+        (3, 1, 4),
+        (3, 2, 3),
+        (3, 4, 6),
+        (4, 1, 9),
+        (4, 3, 1),
+        (4, 5, 8),
+        (4, 7, 7),
+        (5, 4, 2),
+        (5, 6, 1),
+        (5, 7, 5),
+        (6, 2, 4),
+        (6, 5, 5),
+        (6, 6, 7),
+        (7, 2, 7),
+        (7, 3, 4),
+        (7, 5, 1),
+        (7, 6, 9),
+        (8, 1, 3),
+        (8, 7, 8),
+    ]
 
-    # second_moves = [
-    #     (0, 1, 2),
-    #     (0, 3, 3),
-    #     (0, 5, 5),
-    #     (0, 7, 4),
-    #     (1, 6, 9),
-    #     (2, 1, 7),
-    #     (2, 4, 4),
-    #     (2, 7, 8),
-    #     (3, 0, 1),
-    #     (3, 2, 7),
-    #     (3, 5, 9),
-    #     (3, 8, 2),
-    #     (4, 1, 9),
-    #     (4, 4, 3),
-    #     (4, 7, 6),
-    #     (5, 0, 6),
-    #     (5, 3, 7),
-    #     (5, 6, 5),
-    #     (5, 8, 8),
-    #     (6, 1, 1),
-    #     (6, 4, 9),
-    #     (6, 7, 2),
-    #     (7, 2, 6),
-    #     (8, 1, 4),
-    #     (8, 3, 8),
-    #     (8, 5, 7),
-    #     (8, 7, 5),
-    # ]
+    second_moves = [
+        (0, 1, 2),
+        (0, 3, 3),
+        (0, 5, 5),
+        (0, 7, 4),
+        (1, 6, 9),
+        (2, 1, 7),
+        (2, 4, 4),
+        (2, 7, 8),
+        (3, 0, 1),
+        (3, 2, 7),
+        (3, 5, 9),
+        (3, 8, 2),
+        (4, 1, 9),
+        (4, 4, 3),
+        (4, 7, 6),
+        (5, 0, 6),
+        (5, 3, 7),
+        (5, 6, 5),
+        (5, 8, 8),
+        (6, 1, 1),
+        (6, 4, 9),
+        (6, 7, 2),
+        (7, 2, 6),
+        (8, 1, 4),
+        (8, 3, 8),
+        (8, 5, 7),
+        (8, 7, 5),
+    ]
     # #Create a sudoku board.
     # b = Board()
     # #Place the 28 assignments in first_moves on the board.
@@ -379,19 +385,19 @@ if __name__ == "__main__":
     # assert g.goal_test() == True, "goal test test"
     # print("All part 2 tests passed! Testing DFS and BFS next:")
 
-    # print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing DFS on First Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(True, first_moves)
+    test_dfs_or_bfs(True, first_moves)
 
-    # print("<<<<<<<<<<<<<< Testing DFS on Second Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing DFS on Second Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(True, second_moves)
+    test_dfs_or_bfs(True, second_moves)
 
-    # print("<<<<<<<<<<<<<< Testing BFS on First Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing BFS on First Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(False, first_moves)
+    test_dfs_or_bfs(False, first_moves)
 
-    # print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<< Testing BFS on Second Game >>>>>>>>>>>>>>")
 
-    # test_dfs_or_bfs(False, second_moves)
+    test_dfs_or_bfs(False, second_moves)
     pass
