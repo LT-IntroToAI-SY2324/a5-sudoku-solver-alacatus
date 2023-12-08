@@ -26,6 +26,7 @@ After completing the assignment, answer the following reflection questions:
 on average, the DFS was more effecient that BFS, athough i honestly didn't realize what diffrence between the cases where either or was more effecient. 
 
 2. How did the choice of data structures (like the Stack for DFS and Queue for BFS) impact the implementation and functionality of the algorithms? Are there alternative data structures or design patterns that could have been used to achieve the same objectives?
+
 the choice of data structures was used to fit the choice of search, so each data structure functioned in a way that fit the seperate search methods and how they functioned. So for DFS the "vertical" nature of the stack fit better for that method of search. 
 
 
